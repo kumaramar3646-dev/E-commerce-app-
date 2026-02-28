@@ -10,7 +10,7 @@ class ProductDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final type = args["type"]; // "category", "all", or "product"
+    final type = args["type"]; // category, all, or product
 
     // Single product detail
     if (type == "product") {
@@ -18,14 +18,14 @@ class ProductDetailsPage extends StatelessWidget {
       return _buildProductDetail(context, product);
     }
 
-    // Product list (category or all)
+    // Product list => category or all
     final products = args["products"] as List<ProductModel>;
     final categoryName = args["categoryName"] as String;
 
     return _buildProductList(context, products, categoryName);
   }
 
-  // 👉 SINGLE PRODUCT DETAIL
+  // SINGLE PRODUCT DETAIL
   Widget _buildProductDetail(BuildContext context, ProductModel product) {
     return Scaffold(
       appBar: AppBar(
@@ -88,7 +88,7 @@ class ProductDetailsPage extends StatelessWidget {
     );
   }
 
-  // 👉 PRODUCT LIST (Category or All)
+  // PRODUCT LIST (Category or All)
   Widget _buildProductList(BuildContext context, List<ProductModel> products, String title) {
     return Scaffold(
       appBar: AppBar(
@@ -110,7 +110,7 @@ class ProductDetailsPage extends StatelessWidget {
           final product = products[index];
           return InkWell(
             onTap: () {
-              // 👉 Product tap - detail page
+              // Product tap - detail page
               Navigator.pushNamed(
                 context,
                 AppRoutes.route_product_details_page,

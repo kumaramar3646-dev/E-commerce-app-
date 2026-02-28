@@ -16,9 +16,16 @@ class CartFailureState extends CartState {
 class CartUpdatedState extends CartState {
   final List<ProductModel> cartItems;
   final double totalAmount;
-
-  CartUpdatedState({
-    required this.cartItems,
-    required this.totalAmount,
-  });
+  CartUpdatedState({required this.cartItems, required this.totalAmount});
 }
+
+/// Order States
+class OrderPlacedSuccessState extends CartState {}
+class OrdersUpdatedState extends CartState {
+  final List<Map<String, dynamic>> orders;
+  OrdersUpdatedState({required this.orders});
+}
+
+
+
+

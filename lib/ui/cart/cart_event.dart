@@ -33,3 +33,25 @@ class DecreaseQuantityEvent extends CartEvent {
 class ClearCartEvent extends CartEvent {}
 
 class LoadCartEvent extends CartEvent {}
+
+/// Order Events
+class PlaceOrderEvent extends CartEvent {
+  final List<ProductModel> products;
+  final double totalAmount;
+  PlaceOrderEvent({required this.products, required this.totalAmount});
+}
+
+class DeleteOrderEvent extends CartEvent {
+  final String orderId;
+  DeleteOrderEvent({required this.orderId});
+}
+
+class ClearAllOrdersEvent extends CartEvent {}
+
+
+
+
+
+
+
+

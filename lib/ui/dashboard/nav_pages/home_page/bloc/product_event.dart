@@ -8,11 +8,3 @@ class FetchProductsByCategoryEvent extends ProductEvent {
 }
 
 
-
-
-/*
-// product_event.dart
-
-abstract class ProductEvent {}
-
-class FetchAllProductEvent extends ProductEvent {}*/

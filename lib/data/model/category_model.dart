@@ -23,7 +23,7 @@ class CategoryModel {
     );
   }
 
-  // 👇 YEH OPTIONAL HAI - Add kar lein
+  // JSON MA YEH OPTIONAL
   Map<String, dynamic> toJson() {
     return {
       'id': id,

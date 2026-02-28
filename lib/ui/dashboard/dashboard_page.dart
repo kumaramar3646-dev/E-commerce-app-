@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../data/model/product_model.dart';
 import 'nav_pages/cart_page.dart';
 import 'nav_pages/fab_page.dart';
 import 'nav_pages/home_page/home_page.dart';
@@ -22,8 +20,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
     CartPage(),
     MyProfilePage(),
   ];
-
-
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,8 @@
+import 'package:ecommerce_app/ui/dashboard/nav_pages/order_success_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/model/product_model.dart';
-import '../../../data/helper/api_helper.dart';
 import '../../../domain/constant/app_routes.dart';
-import '../../../domain/constant/app_urls.dart';
 import '../../cart/cart_bloc.dart';
 import '../../cart/cart_event.dart';
 import '../../cart/cart_state.dart';
@@ -277,7 +276,6 @@ class _CartPageState extends State<CartPage> {
       ),
     );
   }
-
   Widget _buildBottomBar(CartUpdatedState state) {
     return Container(
       padding: EdgeInsets.all(20),
@@ -351,90 +349,33 @@ class _CartPageState extends State<CartPage> {
             SizedBox(
               width: double.infinity,
               height: 55,
-              child: ElevatedButton(
-                onPressed: () async {
-    // 👉 Order data तैयार करो
-    final orderData = {
-    "products": state.cartItems.map((item) => {
-    "product_id": item.id,
-    "quantity": item.quantity,
-    "price": item.price,
-    }).toList(),
-    "total_amount": state.totalAmount,
-    };
+              child:
 
-    try {
-    // 👉 API call करो
-    var response = await context.read<ApiHelper>().postAPI(
-    url: AppUrls.add_to_cart_url,
-    mBodyParams: orderData,
-    );
-
-    if (response["status"] == true || response["status"] == "true") {
-    // 👉 Success
-    context.read<CartBloc>().add(ClearCartEvent());
-
-    ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text("Order Placed Successfully!")),
-    );
-
-    // 👉 Order History पे जाओ
-    Navigator.pushNamed(context, AppRoutes.route_order_history_page);
-    } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(response["message"] ?? "Failed")),
-    );
-    }
-    } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text("Error: $e")),
-    );
-    }
-    },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepOrangeAccent,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        elevation: 0,
-      ),
-      child: Text(
-        "Checkout",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ),
-
-
-
-              /*ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Continue to Payment..."),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                },
+              ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepOrangeAccent,
-                  foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  elevation: 0,
-                ),
-                child: Text(
-                  "Checkout",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-              ),*/
+                onPressed: () {
+                  // Place Order
+                  context.read<CartBloc>().add(PlaceOrderEvent(
+                    products: state.cartItems,
+                    totalAmount: state.totalAmount,
+                  ));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> OrderSuccessPage()));
+
+                  // Message
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Order Placed Successfully!")),
+                  );
+
+                  // History page
+                  Navigator.pushNamed(context, AppRoutes.route_order_history_page);
+                },
+                child: Text("Checkout", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),)
+              ),
             ),
           ],
         ),
