@@ -1,6 +1,7 @@
 
 import 'package:ecommerce_app/ui/cart/cart_bloc.dart';
 import 'package:ecommerce_app/ui/dashboard/nav_pages/home_page/bloc/product_bloc.dart';
+import 'package:ecommerce_app/ui/dashboard/nav_pages/home_page/order_bloc/order_bloc.dart';
 import 'package:ecommerce_app/ui/onboarding/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ void main() {
         BlocProvider(create: (context) => UserBloc(apiHelper: ApiHelper())),
         BlocProvider(create: (context) => ProductBloc(apiHelper: ApiHelper())),
         BlocProvider(create: (context) => CartBloc(apiHelper: ApiHelper())),
+        BlocProvider(create: (context) => OrderBloc(apiHelper: ApiHelper())),
       ],
       child: MyApp(),
     ),
